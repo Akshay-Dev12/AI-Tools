@@ -2,11 +2,26 @@ from fastapi import FastAPI, HTTPException, BackgroundTasks
 from pydantic import BaseModel
 from typing import Optional, List, Dict
 import time
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
+from apscheduler.triggers.cron import CronTrigger
 
 # uvicorn fastApi:app --reload
 # http://127.0.0.1:8000/redoc - detail doc
 # http://127.0.0.1:8000/redoc - doc
 app = FastAPI()
+
+scheduler = AsyncIOScheduler()
+
+def scheduled_task():
+    print("Executing scheduled task")
+
+@app.on_event("startup")
+async def startup_event():
+    scheduler.start()
+
+@app.on_event("shutdown")
+async def shutdown_event():
+    scheduler.shutdown()
 
 # dependency injection sample
 def get_background_tasks(background_tasks: BackgroundTasks):
@@ -99,5 +114,10 @@ async def start_task(background_tasks: BackgroundTasks):
 @app.get("/task-status/{task_id}")
 async def get_task_status(task_id: str):
     return {"task_id": task_id, "status": task_status.get(task_id, "unknown")}
+
+@app.post("/schedule-task/")
+async def schedule_task():
+    scheduler.add_job(scheduled_task, CronTrigger(hour=0, minute=0))
+    return {"message": "Task scheduled to run at 12:00 AM every day"}
 
 # for complex async processing - use celery
