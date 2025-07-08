@@ -1,8 +1,8 @@
 import httpx
 from app.core.config import OLLAMA_URL
-from app.core.constants import INTERNAL_SERVER_ERROR, TIME_OUT_OLLAMA_MSSG, OLLAMA_TIME_OUT, MODEL, PROMPT, OLLAMA_STREAM, STREAM
+from app.core.constants import INTERNAL_SERVER_ERROR, TIME_OUT_OLLAMA_MSSG, OLLAMA_TIME_OUT, MODEL, OLLAMA_STREAM, STREAM, PROMPT
 
-async def get_ollama_response(model: str, prompt: str):
+async def get_ollama_response(model: str, messages: list, prompt: str):
     try:
         async with httpx.AsyncClient(timeout=OLLAMA_TIME_OUT) as client:
             response = await client.post(
@@ -11,7 +11,7 @@ async def get_ollama_response(model: str, prompt: str):
             )
         response_data = response.json()
         print("Get ollama response service completed.")
-        return {"response": response_data.get("response", "")}
+        return response_data
     except httpx.ReadTimeout:
         return {TIME_OUT_OLLAMA_MSSG}
     except Exception as e:
