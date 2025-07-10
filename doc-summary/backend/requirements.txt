@@ -6,3 +6,4 @@ alembic
 python-dotenv
 transformers
 torch
+yake==0.4.8
