@@ -2,7 +2,8 @@ import streamlit as st
 import requests
 from pdf_utils import extract_text_from_pdf
 
-st.title("📄 Document Summarizer")
+st.title("📄 Gama Document Summarizer")
+st.subheader("Powered By Seqato")
 
 uploaded_file = st.file_uploader("Upload PDF", type="pdf")
 
@@ -14,7 +15,7 @@ if uploaded_file is not None:
     if st.button("Summarize"):
         with st.spinner("Summarizing..."):
             response = requests.post(
-                "http://localhost:8000/summarize",
+                "http://localhost:8000/api/v1/summarize",
                 json={"text": text}
             )
             if response.status_code == 200:
