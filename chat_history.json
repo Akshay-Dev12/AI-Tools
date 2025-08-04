@@ -22,5 +22,21 @@
     {
         "role": "assistant",
         "content": " Thimphu is the capital city of Bhutan. I apologize for the mistake in my previous response."
+    },
+    {
+        "role": "user",
+        "content": "Capital of kerala?"
+    },
+    {
+        "role": "assistant",
+        "content": " The capital city of Kerala is Thiruvananthapuram (Trivandrum)."
+    },
+    {
+        "role": "user",
+        "content": "Capital of west bengal?"
+    },
+    {
+        "role": "assistant",
+        "content": " The capital of West Bengal is Kolkata (also known as Calcutta). However, it's important to note that the administrative headquarters of West Bengal is Nabanna, in the city of Howrah, which serves as the secretariat for the state government. Kolkata remains the commercial and cultural capital of West Bengal."
     }
 ]
