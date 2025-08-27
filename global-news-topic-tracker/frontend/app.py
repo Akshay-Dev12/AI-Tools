@@ -307,7 +307,7 @@ if not st.session_state.available_countries:
 if not st.session_state.available_languages:
     fetch_available_languages()
 
-st.markdown('<h1 class="main-header">Gamma Global News Topic Tracker</h1>', unsafe_allow_html=True)
+st.markdown('<h1 class="main-header">Gamma News Topic Tracker</h1>', unsafe_allow_html=True)
 
 # Sidebar
 st.sidebar.header("📍 Country & Region")
@@ -377,7 +377,7 @@ MODEL_MAP = {
 }
 
 # Main layout with tabs
-tab1, tab2, tab3 = st.tabs(["📰 News", "🧠 Summary", "📊 Analytics"])
+tab1, tab3 = st.tabs(["📰 News", "📊 Analytics"])
 
 with tab1:
     st.subheader("📰 News Controls")
@@ -396,7 +396,7 @@ with tab1:
             f'<div class="language-badge">{current_lang_flag} Language: {st.session_state.selected_language.upper()}</div>',
             unsafe_allow_html=True)
 
-    if st.button("🔄 Fetch Latest News", type="primary", use_container_width=True):
+    if st.button("🔄 Fetch Latest News", type="secondary", use_container_width=True):
         if fetch_news():
             st.success(
                 f"✅ News fetched from {st.session_state.selected_country.upper()} in {st.session_state.selected_language.upper()} successfully!")
@@ -414,75 +414,75 @@ with tab1:
                 if item['url']:
                     st.markdown(f"**URL:** [{item['url'][:50]}...]({item['url']})")
 
-with tab2:
-    st.subheader("🧠 Summary")
+# with tab2:
+#     st.subheader("🧠 Summary")
 
-    if st.session_state.headlines:
-        # Stop streaming button (only show when streaming)
-        if st.session_state.is_streaming:
-            if st.button("⏹️ Stop Streaming", type="primary", use_container_width=True):
-                stop_streaming()
+#     if st.session_state.headlines:
+#         # Stop streaming button (only show when streaming)
+#         if st.session_state.is_streaming:
+#             if st.button("⏹️ Stop Streaming", type="primary", use_container_width=True):
+#                 stop_streaming()
 
-        if st.button("🚀 Generate Summary", type="secondary",
-                     use_container_width=True) and not st.session_state.is_streaming:
-            st.session_state.is_streaming = True
-            st.session_state.summary = ""
-            st.session_state.stop_streaming = False
+#         if st.button("🚀 Generate Summary", type="secondary",
+#                      use_container_width=True) and not st.session_state.is_streaming:
+#             st.session_state.is_streaming = True
+#             st.session_state.summary = ""
+#             st.session_state.stop_streaming = False
 
-            # Create summary container
-            summary_container = st.empty()
-            summary_container.markdown('<div class="summary-box">', unsafe_allow_html=True)
+#             # Create summary container
+#             summary_container = st.empty()
+#             summary_container.markdown('<div class="summary-box">', unsafe_allow_html=True)
 
-            # Streaming indicator
-            st.info("🎯 Streaming summary... (Live) - Click 'Stop Streaming' to interrupt")
+#             # Streaming indicator
+#             st.info("🎯 Streaming summary... (Live) - Click 'Stop Streaming' to interrupt")
 
-            # Collect and display streaming chunks
-            full_summary = ""
-            for chunk in stream_summary():
-                if st.session_state.stop_streaming:
-                    break
+#             # Collect and display streaming chunks
+#             full_summary = ""
+#             for chunk in stream_summary():
+#                 if st.session_state.stop_streaming:
+#                     break
 
-                if "❌ Error:" in chunk:
-                    st.error(chunk)
-                    break
+#                 if "❌ Error:" in chunk:
+#                     st.error(chunk)
+#                     break
 
-                full_summary += chunk
-                st.session_state.summary = full_summary
+#                 full_summary += chunk
+#                 st.session_state.summary = full_summary
 
-                # Update the display with proper formatting
-                summary_container.markdown(
-                    f'<div class="summary-box">'
-                    f'<span class="streaming-indicator"></span>'
-                    f'<strong>Live Summary for {st.session_state.selected_country.upper()} in {st.session_state.selected_language.upper()}:</strong><br><br>{full_summary}'
-                    f'</div>',
-                    unsafe_allow_html=True
-                )
+#                 # Update the display with proper formatting
+#                 summary_container.markdown(
+#                     f'<div class="summary-box">'
+#                     f'<span class="streaming-indicator"></span>'
+#                     f'<strong>Live Summary for {st.session_state.selected_country.upper()} in {st.session_state.selected_language.upper()}:</strong><br><br>{full_summary}'
+#                     f'</div>',
+#                     unsafe_allow_html=True
+#                 )
 
-                time.sleep(0.02)
+#                 time.sleep(0.02)
 
-            st.session_state.is_streaming = False
+#             st.session_state.is_streaming = False
 
-            if not st.session_state.stop_streaming:
-                st.success("✅ Summary complete!")
+#             if not st.session_state.stop_streaming:
+#                 st.success("✅ Summary complete!")
 
-            # Final formatted summary
-            summary_container.markdown(
-                f'<div class="summary-box">'
-                f'<strong>📊 Summary for {st.session_state.selected_country.upper()} in {st.session_state.selected_language.upper()}:</strong><br><br>{st.session_state.summary}'
-                f'</div>',
-                unsafe_allow_html=True
-            )
+#             # Final formatted summary
+#             summary_container.markdown(
+#                 f'<div class="summary-box">'
+#                 f'<strong>📊 Summary for {st.session_state.selected_country.upper()} in {st.session_state.selected_language.upper()}:</strong><br><br>{st.session_state.summary}'
+#                 f'</div>',
+#                 unsafe_allow_html=True
+#             )
 
-        elif st.session_state.summary and not st.session_state.is_streaming:
-            st.markdown(
-                f'<div class="summary-box">'
-                f'<strong>📊 Summary for {st.session_state.selected_country.upper()} in {st.session_state.selected_language.upper()}:</strong><br><br>{st.session_state.summary}'
-                f'</div>',
-                unsafe_allow_html=True
-            )
+#         elif st.session_state.summary and not st.session_state.is_streaming:
+#             st.markdown(
+#                 f'<div class="summary-box">'
+#                 f'<strong>📊 Summary for {st.session_state.selected_country.upper()} in {st.session_state.selected_language.upper()}:</strong><br><br>{st.session_state.summary}'
+#                 f'</div>',
+#                 unsafe_allow_html=True
+#             )
 
-    else:
-        st.info("👆 Fetch some news first to generate a summary!")
+#     else:
+#         st.info("👆 Fetch some news first to generate a summary!")
 
 with tab3:
     st.subheader("📊 News Analytics")
@@ -516,30 +516,6 @@ with tab3:
             source_df = pd.DataFrame(list(data["source_distribution"].items()), columns=["Source", "Count"])
             fig = px.pie(source_df, values="Count", names="Source", title="News Source Distribution")
             st.plotly_chart(fig, use_container_width=True)
-
-        # Sentiment analysis
-        if data["sentiment"]:
-            st.subheader("😊 Sentiment Analysis")
-            sentiment_df = pd.DataFrame(list(data["sentiment"].items()), columns=["Sentiment", "Count"])
-
-            # Create a donut chart for sentiment
-            fig = go.Figure(data=[go.Pie(
-                labels=sentiment_df["Sentiment"],
-                values=sentiment_df["Count"],
-                hole=.3,
-                marker_colors=['#4CAF50', '#F44336', '#9E9E9E']
-            )])
-            fig.update_layout(title_text="Headline Sentiment Distribution")
-            st.plotly_chart(fig, use_container_width=True)
-
-            # Display sentiment metrics
-            col1, col2, col3 = st.columns(3)
-            with col1:
-                st.metric("Positive", data["sentiment"]["positive"])
-            with col2:
-                st.metric("Negative", data["sentiment"]["negative"])
-            with col3:
-                st.metric("Neutral", data["sentiment"]["neutral"])
 
     elif st.session_state.analytics_data and "error" in st.session_state.analytics_data:
         st.error(f"Error generating analytics: {st.session_state.analytics_data['error']}")
