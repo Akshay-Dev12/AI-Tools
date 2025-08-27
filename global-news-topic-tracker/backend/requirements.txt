@@ -1,0 +1,12 @@
+fastapi
+streamlit
+uvicorn
+requests
+feedparser
+openai
+python-dotenv
+pydantic
+numpy
+plotly
+textblob
+pycountry
