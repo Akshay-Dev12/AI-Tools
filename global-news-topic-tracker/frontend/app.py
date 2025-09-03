@@ -18,7 +18,7 @@ if not logger.hasHandlers():
     logger.addHandler(handler)
     logger.setLevel(logging.DEBUG)
 
-BACKEND_URL = "http://localhost:8000"
+BACKEND_URL = "http://localhost:8005"
 
 # Page config
 st.set_page_config(
