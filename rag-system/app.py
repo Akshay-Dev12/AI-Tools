@@ -37,11 +37,11 @@ st.markdown("""
         margin-bottom: 1rem;
     }
     .user-message {
-        background-color: #e3f2fd;
+        background-color: black;
         margin-left: 2rem;
     }
     .bot-message {
-        background-color: #f5f5f5;
+        background-color: black;
         margin-right: 2rem;
     }
     </style>
