@@ -1,0 +1,25 @@
+# FastAPI Backend
+fastapi
+uvicorn[standard]
+python-multipart
+
+# LangChain & RAG
+langchain
+langchain-community
+chromadb
+sentence-transformers
+
+# Document Processing
+PyPDF2
+python-docx
+
+# Streamlit Frontend
+streamlit
+requests
+
+# Additional utilities
+pydantic
+pydantic-settings
+
+# Note: sentence-transformers will automatically install
+# compatible versions of torch, transformers, and numpy
